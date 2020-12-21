@@ -1,0 +1,7 @@
+    <p class="red white--text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus corporis a id explicabo dignissimos tempora in error nobis tenetur perspiciatis quae eligendi amet autem sequi, fugit quos illum quo optio.</p>
+    <p class="pink lighten-4 red--text text--darken-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus fugit quo atque voluptates deserunt rerum reprehenderit accusamus nihil ipsa aspernatur velit officiis commodi quod illum eum quasi, obcaecati ullam possimus.</p>
+    <h1 class="display-4">Massive Display</h1>
+    <h4 class="display-1">Smaller display</h4>
+    <p class="headline">This is a headline</p>
+    <p class="subheading">This is a subheading</p>
+    <p class="caption">This is a caption</p> 
