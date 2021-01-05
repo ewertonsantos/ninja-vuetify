@@ -37,6 +37,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
+                  readonly
                   :rules="inputRules"
                   v-model="dateFormatted"
                   label="Due date"
@@ -52,6 +53,7 @@
               <v-date-picker
                 v-model="date"
                 no-title
+                scrollable
                 @input="menu1 = false"
               ></v-date-picker>
             </v-menu>
@@ -77,7 +79,8 @@
 </template>
 
 <script>
-import db from '@/fb'
+import Project from '@/project'
+import { http } from '@/config'
 
 
 export default {
@@ -90,9 +93,10 @@ export default {
       title: '',
       content: '',
       inputRules: [
-        v => v.length >= 3 || 'Minimum lenght is 3 characters' 
+      v => v.length >= 3 || 'Minimum lenght is 3 characters' 
       ],
-      loading: false
+      loading: false,
+      errors: [],
     }),
 
     computed: {
@@ -118,16 +122,25 @@ export default {
               person: 'The Net Ninja',
               status: 'Ongoing'
             }
-            db.collection('projects').add(project).then(()=>{
-              console.log('added to db')
+            http.post('projects/',project).then(()=>{
               this.title = ''
               this.content = ''
               this.dialog = false
               this.loading = false
+              this.menu1 = false
               this.$refs.form.reset()
               this.$emit('projectAdded')
+            }).catch( e => {
+              this.$emit('projectError')
+              this.loading = false
+              this.errors = e.response.data.errors
             })
         }
+      },
+
+      salvar(){
+       Project.salvar(this.project).then(()=>{
+        })
 
       },
        close() {

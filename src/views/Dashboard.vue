@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-layout row class="mb-3" >
+<!--   <v-layout row class="mb-3" >
 
       <v-tooltip top>
           <template v-slot:activator="{ on }">
@@ -25,7 +25,8 @@
 
     </v-layout>
     
-   
+--> 
+    
     
     <template>
           <div class="text-left">
@@ -64,6 +65,10 @@
               
               </v-list>
             </v-menu>
+            <v-btn small text color="grey" @click="atualizar()" v-on="on">
+               <span class="caption text-capitalize">Refresh</span>
+               <v-icon right small >mdi-refresh</v-icon>
+            </v-btn>
           </div>
     </template>
 
@@ -100,7 +105,9 @@
 </template>
 
 <script>
-import db from '@/fb'
+//import db from '@/fb'
+import { http } from '@/config'
+
 
 
 export default {
@@ -109,11 +116,26 @@ export default {
      projects: []
    }
  },
+
  methods:{
    sortBy(prop){
      this.projects.sort((a,b) => a[prop] < b[prop] ? -1 : 1)
-   }
- },
+     },
+    atualizar(){
+      http.get('projects/').then( res => {
+      this.projects = res.data
+      console.log(res.data)
+    })
+    }
+   },
+
+   mounted(){
+      http.get('projects/').then( res => {
+      this.projects = res.data
+      console.log(res.data)
+    })
+   },
+/*
    created(){
     db.collection('projects').onSnapshot(res => {
       const changes = res.docChanges();
@@ -122,12 +144,13 @@ export default {
         if (change.type === 'added'){
           this.projects.push({
             ...change.doc.data(),
-            id: change.doc.id
+           id: change.doc.id
           })
-        }
+       }
       })
     })
   }
+*/
 }
 </script>
 

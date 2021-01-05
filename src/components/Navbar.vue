@@ -10,7 +10,18 @@
         <template v-slot:action="{ attrs }">
             <v-btn text color = "white" v-bind="attrs"  @click="snackbar = false" class = "caption">Close</v-btn>
         </template>
-    </v-snackbar>  
+    </v-snackbar> 
+
+    <v-snackbar
+        color="red"
+        v-model="snackbar2"
+        top
+    >
+        {{text2}}
+        <template v-slot:action="{ attrs }">
+            <v-btn text color = "white" v-bind="attrs"  @click="snackbar2 = false" class = "caption">Close</v-btn>
+        </template>
+    </v-snackbar> 
 
         <v-toolbar flat app>
             <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
@@ -55,7 +66,7 @@
             </v-layout>
 
             <v-flex class="my-4">
-                <Popup @projectAdded="snackbar=true"/>
+                <Popup @projectAdded="snackbar=true" @projectError="snackbar2=true"/>
             </v-flex> 
 
             <v-list>
@@ -88,7 +99,9 @@ export default {
                 {icon: 'mdi-account', text: 'Team', route: '/team'},
             ],
             snackbar:false,
-            text: 'Project added with Sucessfull '
+            text: 'Project added with Sucessfull ',
+            snackbar2:false,
+            text2: 'Unexpected error',
         }
     }
 }
